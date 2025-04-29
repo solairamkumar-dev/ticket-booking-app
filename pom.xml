@@ -9,8 +9,8 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.train</groupId>
-	<artifactId>ticket</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>ticket-booking</artifactId>
+	<version>1.0</version>
 	<name>ticket</name>
 	<description>Ticket Booking App</description>
 	<url/>

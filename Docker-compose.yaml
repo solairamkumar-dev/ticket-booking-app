@@ -1,0 +1,39 @@
+version: '3.8'
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: my-mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: trainticket
+      #MYSQL_USER: root
+      #MYSQL_PASSWORD: lotus@Magic10
+      MYSQL_ROOT_PASSWORD: lotus@Magic10
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  ticket-booking:
+    build: .
+    image: ticket-booking
+    container_name: ticket-booking
+    depends_on:
+      - mysql
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: "jdbc:mysql://mysql:3306/trainticket"
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: lotus@Magic10
+      SPRING_MAIL_HOST: smtp.gmail.com
+      SPRING_MAIL_PORT: 587
+      SPRING_MAIL_USERNAME: ${SUPPORT_EMAIL}
+      SPRING_MAIL_PASSWORD: ${APP_PASSWORD}
+      SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH: true
+      SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE: true
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+      SECURITY_JWT_EXPIRATION_TIME: 3600000
+
+volumes:
+  mysql_data:
